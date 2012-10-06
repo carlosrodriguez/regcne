@@ -1,0 +1,37 @@
+{
+  "name": "cne",
+  "description": "CNE Twitter Bot",
+  "version": "0.1.0",
+  "homepage": "https://github.com/carlosrodriguez/cne",
+  "author": {
+    "name": "Carlos Rodriguez",
+    "email": "me@carlosrodriguez.us"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/carlosrodriguez/cne.git"
+  },
+  "bugs": {
+    "url": "https://github.com/carlosrodriguez/cne/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/carlosrodriguez/cne/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/cne",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies":{
+  	"ntwitter": "0.5.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.11"
+  },
+  "keywords": []
+}
