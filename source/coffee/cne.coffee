@@ -1,3 +1,28 @@
+express = require "express"
+http = require "http"
+
+app = express()
+server = http.createServer(app)
+io = require("socket.io").listen(server)
+port = process.env.PORT || 3000
+
+app.use(express.static('public'))
+
+app.use(express.logger())
+
+app.engine('html', require('ejs').renderFile)
+
+app.get('/', (req, res) ->
+  res.render('index.html')
+)
+
+server = app.listen(port)
+io = require('socket.io').listen(server)
+
+server.listen(app.get('port'), () ->
+  console.log("Express server listening on port " + app.get('port'))
+)
+
 Twitter = require "ntwitter"
 
 twit = new Twitter({
@@ -15,27 +40,34 @@ twit = new Twitter({
 #   return
 # )
 
-counter = 0
 
-timer = () ->
-  console.log counter
-  counter  = 0
-  setTimeout timer, 1000
-  return
+io.sockets.on('connection', (socket) ->
+  counter = 0
 
-
-twit.stream("user", {track: "hay un camino, capriles"}, (stream) ->
-  stream.on("data", (data) ->
-    # console.log data
-    counter += 1
-  )
-  stream.on("end", (response) ->
-    # Handle a disconnection
-  )
-  stream.on("destroy", (response) ->
-    # Handle a 'silent' disconnection from Twitter, no end/error event fired
+  timer = () ->
+    console.log "Counter"
     console.log counter
+    socket.broadcast.emit("capriles", {capriles: counter})
+    counter  = 0
+    setTimeout timer, 1000
+    return
+
+
+  twit.stream("user", {track: "hay un camino, capriles"}, (stream) ->
+    stream.on("data", (data) ->
+      # console.log data
+      counter += 1
+    )
+    stream.on("end", (response) ->
+      # Handle a disconnection
+    )
+    stream.on("destroy", (response) ->
+      # Handle a 'silent' disconnection from Twitter, no end/error event fired
+      console.log counter
+    )
+    # Disconnect stream after five seconds
+    setTimeout timer, 1000
   )
-  # Disconnect stream after five seconds
-  setTimeout timer, 1000
 )
+
+server.listen(port)
