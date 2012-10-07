@@ -42,31 +42,41 @@ twit = new Twitter({
 
 
 io.sockets.on('connection', (socket) ->
-  counter = 0
+  capriles = 0
+  chavez = 0
 
   timer = () ->
     console.log "Counter"
-    console.log counter
-    socket.broadcast.emit("capriles", {capriles: counter})
-    counter  = 0
+    socket.broadcast.emit("counter", {capriles: capriles, chavez: chavez})
+    capriles  = 0
+    chavez = 0
     setTimeout timer, 1000
     return
 
-
-  twit.stream("user", {track: "hay un camino, capriles"}, (stream) ->
+  twit.stream("user", {track: "chavez"}, (stream) ->
     stream.on("data", (data) ->
-      # console.log data
-      counter += 1
+      console.log data.text
+      # console.log "me", capriles, chavez
+      
+      if(typeof(data.text) != "undefined")
+        if(data.text.match(/chavez/g))
+          console.log(data.text.match(/chavez/g))
+          chavez += 1
+        else
+          capriles += 1
     )
+    
+    setTimeout timer, 1000
+
     stream.on("end", (response) ->
       # Handle a disconnection
+      console.log "disconnect"
     )
-    stream.on("destroy", (response) ->
-      # Handle a 'silent' disconnection from Twitter, no end/error event fired
-      console.log counter
+
+    stream.on("error", (response) ->
+      # Handle a disconnection
+      console.log "error"
     )
-    # Disconnect stream after five seconds
-    setTimeout timer, 1000
   )
 )
 
