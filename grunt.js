@@ -37,14 +37,11 @@ module.exports = function(grunt) {
 		"heroku-deploy" : {
 			production : {
 				deployBranch : "master"
-			},
-			staging : {
-				deployBranch : "dev"
 			}
 		},
 
 		watch: {
-			files: "<config:lint.files>",
+			files: ["<config:lint.files>", "<config:coffee.app.src>"],
 			tasks: "default"
 		},
 
@@ -79,10 +76,10 @@ module.exports = function(grunt) {
 
 	// Default task.
 
-	grunt.registerTask("dev", "coffeelint coffee strip lint");
+	grunt.registerTask("dev", "coffeelint coffee lint");
 
 	grunt.registerTask("default", "dev watch");
 
-	grunt.registerTask("release", "default bump heroku-deploy");
+	grunt.registerTask("deploy", "dev strip bump heroku-deploy");
 
 };

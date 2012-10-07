@@ -1,7 +1,7 @@
 {
   "name": "cne",
   "description": "CNE Twitter Bot",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "homepage": "https://github.com/carlosrodriguez/cne",
   "author": {
     "name": "Carlos Rodriguez",
@@ -27,8 +27,8 @@
   "scripts": {
     "test": "grunt test"
   },
-  "dependencies":{
-  	"ntwitter": "0.5.0"
+  "dependencies": {
+    "ntwitter": "0.5.0"
   },
   "devDependencies": {
     "grunt": "~0.3.11",
