@@ -3,9 +3,24 @@ var domain = document.location.hostname,
 	socket = io.connect(path); // Initiate socket connection
 
 socket.on("counter", function (data) {
-	console.log(data);
+	var caprilesbar = (data.caprilestotal * 100) / data.combined,
+		chavezbar = 100 - caprilesbar;
+
+	// Seriuosly? use a template please.
+	$("#caprilesbar").css("width",caprilesbar+"%");
+	$("#chavezbar").css("width",chavezbar+"%");
+
+	$("#caprilespercent").text(caprilesbar.toFixed(2)+"%");
+	$("#chavezpercent").text(chavezbar.toFixed(2)+"%");
+
 	$("#capriles").text(data.capriles);
+	$("#caprilesminute").text(data.caprilesminute);
+	$("#caprileshour").text(data.caprileshour);
+	$("#caprilestotal").text(data.caprilestotal);
 	$("#chavez").text(data.chavez);
+	$("#chavezminute").text(data.chavezminute);
+	$("#chavezhour").text(data.chavezhour);
+	$("#chaveztotal").text(data.chaveztotal);
 });
 
 /* Dom Stuff */

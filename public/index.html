@@ -29,7 +29,7 @@
           Contador
         </h1>
         <p>
-          Tweets por segundo de cada candidato
+          Cantidad de tweets mencionando a cada candidato
         </p>
       </div>
     </div>
@@ -38,23 +38,83 @@
       </div>
       <div class="row-fluid">
         <div class="span6">
+          <div class="progress">
+  			<div class="bar" style="width: 0;" id="caprilesbar"></div>
+		  </div>
           <h3>
-            Capriles
+            Capriles <span id="caprilespercent"></span>
           </h3>
           <div>
-            <p id="capriles">
-              0
-            </p>
+	          <table class="table">
+	          	<tr>
+		          <td>
+		          	Total
+		          </td>
+		          <td id="caprilestotal">
+		          </td>
+		        </tr>
+		        <tr>
+		          <td>
+		          	Segundo
+		          </td>
+		          <td id="capriles">
+		          </td>
+		        </tr>
+		        <tr>
+		          <td>
+		          	Minuto
+		          </td>
+		          <td id="caprilesminute">
+		          </td>
+		        </tr>
+		        <tr>
+		          <td>
+		          	Hora
+		          </td>
+		          <td id="caprileshour">
+		          </td>
+		        </tr>
+		      </table>
           </div>
         </div>
         <div class="span6">
+        	<div class="progress">
+			  <div class="bar bar-danger" style="width: 0;" id="chavezbar"></div>
+			</div>
           <h3>
-            Chavez
+            Chavez  <span id="chavezpercent"></span>
           </h3>
           <div>
-            <p id="chavez">
-              0
-            </p>
+            <table class="table">
+	          	<tr>
+		          <td>
+		          	Total
+		          </td>
+		          <td id="chaveztotal">
+		          </td>
+		        </tr>
+		        <tr>
+		          <td>
+		          	Segundo
+		          </td>
+		          <td id="chavez">
+		          </td>
+		        </tr>
+		        <tr>
+		          <td>
+		          	Minuto
+		          </td>
+		          <td id="chavezminute">
+		          </td>
+		        </tr>
+		        <tr>
+		          <td>
+		          	Hora
+		          </td>
+		          <td id="chavezhour">
+		          </td>
+		        </tr>
+		      </table>
           </div>
         </div>
       </div>

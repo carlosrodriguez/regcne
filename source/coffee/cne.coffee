@@ -45,17 +45,55 @@ twit = new Twitter({
 #   return
 # )
 
+capriles = 0
+caprilesminute = 0
+caprileshour = 0
+caprilestotal = 0
+chavez = 0
+chavezminute = 0
+chavezhour = 0
+chaveztotal = 0
+combined = 0
 
 io.sockets.on('connection', (socket) ->
-  capriles = 0
-  chavez = 0
+  
+
+  sendCounters = () ->
+    message =
+      capriles: capriles
+      caprilesminute: caprilesminute
+      caprileshour: caprileshour
+      caprilestotal: caprilestotal
+      chavez: chavez
+      chavezminute: chavezminute
+      chavezhour: chavezhour
+      chaveztotal: chaveztotal
+      combined: combined
+
+    socket.broadcast.emit("counter", message)
 
   timer = () ->
     console.log "Counter"
-    socket.broadcast.emit("counter", {capriles: capriles, chavez: chavez})
+    sendCounters()
     capriles  = 0
     chavez = 0
     setTimeout timer, 1000
+    return
+
+  minutes = () ->
+    console.log "Minutes"
+    sendCounters()
+    caprilesminute  = 0
+    chavezminute = 0
+    setTimeout timer, 60000
+    return
+
+  hours = () ->
+    console.log "Hours"
+    sendCounters()
+    caprileshour  = 0
+    chavezhour = 0
+    setTimeout timer, 3600000
     return
 
   twit.stream("user", {track: "chavez"}, (stream) ->
@@ -67,11 +105,22 @@ io.sockets.on('connection', (socket) ->
         if(data.text.match(/chavez/g))
           console.log(data.text.match(/chavez/g))
           chavez += 1
+          chavezminute += 1
+          chavezhour += 1
+          chaveztotal += 1
         else
           capriles += 1
+          caprilesminute += 1
+          caprileshour += 1
+          caprilestotal += 1
+
+        combined += 1
+      return
     )
     
     setTimeout timer, 1000
+    setTimeout minutes, 60000
+    setTimeout hours, 3600000
 
     stream.on("end", (response) ->
       # Handle a disconnection
