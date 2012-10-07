@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 
 		"heroku-deploy" : {
 			production : {
-				deployBranch : "master"
+				deployBranch : "deploy"
 			}
 		},
 

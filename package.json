@@ -1,7 +1,7 @@
 {
   "name": "cne",
   "description": "CNE Twitter Bot",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/carlosrodriguez/cne",
   "author": {
     "name": "Carlos Rodriguez",
