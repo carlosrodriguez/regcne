@@ -86,7 +86,7 @@ io.sockets.on('connection', (socket) ->
     socket.broadcast.emit("counter", message)
 
   timer = () ->
-    console.log "Counter"
+    # console.log "Counter"
     if(capriles > caprilesrecord) then caprilesrecord = capriles
     if(chavez > chavezrecord) then chavezrecord = chavez
     sendCounters()
@@ -102,7 +102,7 @@ io.sockets.on('connection', (socket) ->
     sendCounters()
     caprilesminute  = 0
     chavezminute = 0
-    setTimeout timer, 60000
+    setTimeout minutes, 60000
     return
 
   hours = () ->
@@ -113,7 +113,7 @@ io.sockets.on('connection', (socket) ->
     sendCounters()
     caprileshour  = 0
     chavezhour = 0
-    setTimeout timer, 3600000
+    setTimeout hours, 3600000
     return
 
   twit.stream("user", {track: "chavez"}, (stream) ->
