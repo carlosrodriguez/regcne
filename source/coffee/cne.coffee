@@ -45,13 +45,20 @@ twit = new Twitter({
 #   return
 # )
 
+# turn this into a nicer object? maybe?
 capriles = 0
+caprilesrecord = 0
 caprilesminute = 0
+caprilesminuterecord = 0
 caprileshour = 0
+caprileshourrecord = 0
 caprilestotal = 0
 chavez = 0
+chavezrecord = 0
 chavezminute = 0
+chavezminuterecord = 0
 chavezhour = 0
+chavezhourrecord = 0
 chaveztotal = 0
 combined = 0
 
@@ -61,12 +68,18 @@ io.sockets.on('connection', (socket) ->
   sendCounters = () ->
     message =
       capriles: capriles
+      caprilesrecord: caprilesrecord
       caprilesminute: caprilesminute
+      caprilesminuterecord: caprilesminuterecord
       caprileshour: caprileshour
+      caprileshourrecord: caprileshourrecord
       caprilestotal: caprilestotal
       chavez: chavez
+      chavezrecord: chavezrecord
       chavezminute: chavezminute
+      chavezminuterecord: chavezminuterecord
       chavezhour: chavezhour
+      chavezhourrecord: chavezhourrecord
       chaveztotal: chaveztotal
       combined: combined
 
@@ -74,6 +87,8 @@ io.sockets.on('connection', (socket) ->
 
   timer = () ->
     console.log "Counter"
+    if(capriles > caprilesrecord) then caprilesrecord = capriles
+    if(chavez > chavezrecord) then chavezrecord = chavez
     sendCounters()
     capriles  = 0
     chavez = 0
@@ -82,6 +97,8 @@ io.sockets.on('connection', (socket) ->
 
   minutes = () ->
     console.log "Minutes"
+    if(caprilesminute > caprilesminuterecord) then caprilesminuterecord = caprilesminute
+    if(chavezminute > chavezminuterecord) then chavezminuterecord = chavezminute
     sendCounters()
     caprilesminute  = 0
     chavezminute = 0
@@ -90,6 +107,9 @@ io.sockets.on('connection', (socket) ->
 
   hours = () ->
     console.log "Hours"
+    if(caprileshour > caprileshourrecord) then caprileshourrecord = caprileshour
+    if(chavezhour > chavezhourrecord) then chavezhourrecord = chavezhour
+    console.log(caprileshourrecord, caprileshour)
     sendCounters()
     caprileshour  = 0
     chavezhour = 0
@@ -98,12 +118,12 @@ io.sockets.on('connection', (socket) ->
 
   twit.stream("user", {track: "chavez"}, (stream) ->
     stream.on("data", (data) ->
-      console.log data.text
+      # console.log data.text
       # console.log "me", capriles, chavez
       
       if(typeof(data.text) != "undefined")
         if(data.text.match(/chavez/g))
-          console.log(data.text.match(/chavez/g))
+          # console.log(data.text.match(/chavez/g))
           chavez += 1
           chavezminute += 1
           chavezhour += 1
