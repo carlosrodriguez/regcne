@@ -19,6 +19,11 @@ app.get('/', (req, res) ->
 server = app.listen(port)
 io = require('socket.io').listen(server)
 
+io.configure( () ->
+  io.set("transports", ["xhr-polling"])
+  io.set("polling duration", 10)
+)
+
 server.listen(app.get('port'), () ->
   console.log("Express server listening on port " + app.get('port'))
 )
